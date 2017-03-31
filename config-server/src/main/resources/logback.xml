@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="log_home" value="logs" />
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+		</layout>
+	</appender>
+	<appender name="dailyFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log_home}/msp-config-service.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${log_home}/msp-config-service.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+	</appender>
+	<logger name="org.springframework" level="info" additivity="false">
+		<appender-ref ref="dailyFileAppender" />
+	</logger>
+	<logger name="com.talkingdata.config.service" level="debug" additivity="true">
+		<appender-ref ref="dailyFileAppender" />
+	</logger>
+	<logger name="org.eclipse.jetty" level="error" additivity="false">
+		<appender-ref ref="dailyFileAppender" />
+	</logger>
+	<root level="info">
+		<appender-ref ref="console" />
+		<appender-ref ref="dailyFileAppender" />
+	</root>
+</configuration>

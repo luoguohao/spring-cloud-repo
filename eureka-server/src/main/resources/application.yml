@@ -1,0 +1,12 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: msp-eureka-server
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.19.107:8081/eureka/,http://192.168.19.108:8081/eureka/
+  instance:
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
