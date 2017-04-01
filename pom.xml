@@ -12,6 +12,7 @@
         <module>eureka-server</module>
         <module>config-server</module>
         <module>msp-services</module>
+        <module>msp-gateway</module>
     </modules>
     <packaging>pom</packaging>
 
